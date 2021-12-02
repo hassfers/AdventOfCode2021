@@ -2,7 +2,7 @@ package com.mypackage
 
 import kotlin.jvm.internal.Intrinsics
 
-class DayOne: Day {
+class DayOne(override val isRunningExample: Boolean = false) : Day {
 	override fun solvePartOne(input: Array<String>): String {
 
 		val intInput = input.map { it.toInt() }
@@ -32,5 +32,7 @@ class DayOne: Day {
 
 	override val day: DayIdentifier
 		get() = DayIdentifier.Day_1
+	override val example: Array<String>
+		get() = TODO("Not yet implemented")
 }
 

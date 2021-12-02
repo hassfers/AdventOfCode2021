@@ -2,6 +2,6 @@ package com.mypackage
 
 fun main(args: Array<String>) {
 
-  DayOne().solve()
-
+//  DayOne().solve()
+Day_2().solve()
 }

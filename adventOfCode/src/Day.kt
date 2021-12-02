@@ -14,14 +14,27 @@ interface Day {
 		println("took ${time} ms")
 	}
 
-	fun solvePartOne(input: Array<String>): String
-	fun solvePartTwo(input:Array<String>): String
+	fun solvePartOne(input: Array<String>): String {
+		return "not implemented yet"
+	}
+
+	fun solvePartTwo(input:Array<String>): String {
+		return "not implemented yet"
+	}
+
 	val day: DayIdentifier
+
+	val example: Array<String>
+	val isRunningExample:Boolean
+
 
 	fun readInputFile(): Array<String> {
 //		File(".").walk().forEach {
 //			println(it)
 //		}
+		if (isRunningExample) {
+			return example
+		}
 		val filename = "./adventOfCode/src/Input/" + day.toString()
 		return File(filename).readLines().toTypedArray()
 	}
