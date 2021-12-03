@@ -10,3 +10,20 @@ fun <E> List<E>.floatingGroupBy(number: Int): List<List<E>> {
 	}
 	return groupedList
 }
+
+fun <E: Iterable<E>> List<E>.genericTranspose(): List<E> {
+	val rows = this.size
+	val column = this.first().count()
+	return this
+}
+
+fun List<String>.transpose(): List<String> {
+	val input = this.map { it.toCharArray() }
+	var buffer = ""
+
+	this.first().forEachIndexed { column, _ ->
+		this.forEachIndexed { row, _ -> buffer += input[row][column] }
+	}
+
+	return buffer.chunked(this.size)
+}
