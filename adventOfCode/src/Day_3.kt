@@ -1,7 +1,5 @@
 package com.mypackage
 
-import kotlin.math.max
-
 class Day_3(override val isRunningExample: Boolean) : Day {
 	override val day: DayIdentifier
 		get() = DayIdentifier.Day_3
@@ -55,62 +53,56 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 	override fun solvePartTwo(input: Array<String>): String {
 		var column = 0
 		var bufferOxygen = input.toMutableList()
-		while (bufferOxygen.size > 1){
-			val columnEntry = bufferOxygen.transpose()
+		while (bufferOxygen.size > 1) {
+			val columnEntry = bufferOxygen
+				.transpose()
 				.map {
-				it.groupBy { it }
-					.mapValues {
-						it.value.size
-					}
-			}
-				.get(column)
+					it.groupBy { it }
+						.mapValues {
+							it.value.size
+						}
+				}[column]
 
-			val test = if((columnEntry.get('0')!! compareTo columnEntry.get('1')!!) == 1){
+			val key = if ((columnEntry['0']!! compareTo columnEntry['1']!!) == 1) {
 				'0'
-			}else{
+			} else {
 				'1'
 			}
 
 			bufferOxygen =
 				bufferOxygen.filter {
-					it[column] == test
+					it[column] == key
 				}.toMutableList()
 
 			column += 1
-			println(test)
 		}
 
-		println("oxygen $bufferOxygen, ${Integer.parseInt(bufferOxygen.first(),2)}")
 
-	column = 0
+		column = 0
 		var co2rating = input.toMutableList()
-		while (co2rating.size > 1){
+		while (co2rating.size > 1) {
 			val columnEntry = co2rating.transpose()
 				.map {
 					it.groupBy { it }
 						.mapValues {
 							it.value.size
 						}
-				}
-				.get(column)
+				}[column]
 
-			val test = if((columnEntry.get('1')!! compareTo columnEntry.get('0')!!) == -1){
+			val key = if ((columnEntry['1']!! compareTo columnEntry['0']!!) == -1) {
 				'1'
-			}else{
+			} else {
 				'0'
 			}
 
 			co2rating =
 				co2rating.filter {
-					it[column] == test
+					it[column] == key
 				}.toMutableList()
 
 			column += 1
-			println(test)
 		}
-		println(co2rating)
-		println("oxygen $co2rating, ${Integer.parseInt(co2rating.first(),2)}")
 
-		return (" ${Integer.parseInt(co2rating.first(),2) * Integer.parseInt(bufferOxygen.first(),2)}")
+		return (" ${Integer.parseInt(co2rating.first(), 2) * Integer.parseInt(bufferOxygen.first(), 2)}")
 	}
 }
