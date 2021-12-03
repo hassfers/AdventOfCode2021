@@ -51,42 +51,17 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 	}
 
 	override fun solvePartTwo(input: Array<String>): String {
-		val oxygen = getOxygen(input, 0).first()
-		val co2rating = getCo2(input,0).first()
+		val oxygen = getOxygen(input).first()
+		val co2rating = getCo2(input, 0).first()
 
 		return ("${oxygen} ${co2rating} ${Integer.parseInt(co2rating, 2) * Integer.parseInt(oxygen, 2)}")
 	}
 
-//	fun processWithComperator(array: Array<String>, position: Int, comparator: (Int, Int) -> Char): Array<String> {
-//		if (array.size == 1) {
-//			return array
-//		}
-//		val columnEntry = array.toList()
-//			.column(position)
-//			.groupBy { it }
-//			.mapValues {
-//				it.value.size
-//			}
-//
-//		val key = comparator(columnEntry['0'],columnEntry)
-//
-//			if ((columnEntry['0']!! compareTo columnEntry['1']!!) == 1) {
-//			'0'
-//		} else {
-//			'1'
-//		}
-//
-//		return getOxygen(array.filter {
-//			it[position] == key
-//		}.toTypedArray(), position + 1)
-//	}
-
-
-
-	fun getOxygen(array: Array<String>, position: Int): Array<String> {
+	fun processWithComperator(array: Array<String>, position: Int, comparator: (Int, Int) -> Char): Array<String> {
 		if (array.size == 1) {
 			return array
 		}
+
 		val columnEntry = array.toList()
 			.column(position)
 			.groupBy { it }
@@ -94,39 +69,34 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 				it.value.size
 			}
 
-		val key = if ((columnEntry['0']!! compareTo columnEntry['1']!!) == 1) {
-			'0'
-		} else {
-			'1'
-		}
+		val key = comparator(columnEntry['0']?:0, columnEntry['1']?:0)
+		return processWithComperator(
+			array.filter {
+				it[position] == key
+			}.toTypedArray(),
+			position + 1,
+			comparator
+		)
+	}
 
-		return getOxygen(array.filter {
-			it[position] == key
-		}.toTypedArray(), position + 1)
+	fun getOxygen(array: Array<String>): Array<String> {
+		return processWithComperator(array, 0, comparator = { zeros, ones ->
+			if ((zeros compareTo ones) == 1) {
+				'0'
+			} else {
+				'1'
+			}
+		})
 	}
 
 	fun getCo2(array: Array<String>, position: Int): Array<String> {
-		if (array.size == 1) {
-			return array
-		}
-
-		val columnEntry = array.toList()
-			.column(position)
-			.groupBy { it }
-			.mapValues {
-				it.value.size
+		return processWithComperator(array, 0, comparator = { zeros, ones ->
+			if ((ones compareTo zeros) == -1) {
+				'1'
+			} else {
+				'0'
 			}
-
-		val key = if ((columnEntry['1']!! compareTo columnEntry['0']!!) == -1) {
-			'1'
-		} else {
-			'0'
-		}
-
-		println(key)
-		return getCo2(array.filter {
-			it[position] == key
-		}.toTypedArray(), position + 1)
+		})
 	}
 }
 

@@ -29,5 +29,5 @@ fun List<String>.transpose(): List<String> {
 }
 
 fun List<String>.column(number: Int): String {
-return 	String(this.map { it[number]}.toCharArray())
+return this.map { it[number]}.toCharArray().contentToString()
 }
