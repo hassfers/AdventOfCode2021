@@ -27,3 +27,7 @@ fun List<String>.transpose(): List<String> {
 
 	return buffer.chunked(this.size)
 }
+
+fun List<String>.column(number: Int): String {
+return 	String(this.map { it[number]}.toCharArray())
+}
