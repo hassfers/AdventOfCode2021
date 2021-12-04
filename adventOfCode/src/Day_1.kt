@@ -2,17 +2,17 @@ package com.mypackage
 
 import kotlin.jvm.internal.Intrinsics
 
-class DayOne(override val isRunningExample: Boolean = false) : Day {
+class Day_1(override val isRunningExample: Boolean = false) : Day {
 	override fun solvePartOne(input: Array<String>): String {
 
 		val intInput = input.map { it.toInt() }
 		return intInput
 			.mapIndexed { index, i ->
-			if (index != 0 && intInput[index-1] < i) {
-				"increased"
-			} else {
-				"nothing"
-			}
+				if (index != 0 && intInput[index - 1] < i) {
+					"increased"
+				} else {
+					"nothing"
+				}
 		}
 			.count {
 				it == "increased"
