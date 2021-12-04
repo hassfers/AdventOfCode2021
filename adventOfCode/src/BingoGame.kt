@@ -4,7 +4,7 @@ import java.lang.Exception
 
 class BingoGame {
 	val numbers: Array<Int>
-	val boards: Array<BingoBoard>
+	var boards: Array<BingoBoard>
 
 	constructor(array: Array<String>) {
 		val modifiedInputArray = array.toMutableList().splitBy("")
@@ -12,10 +12,27 @@ class BingoGame {
 		boards = modifiedInputArray.drop(1).map { BingoBoard(it.toTypedArray()) }.toTypedArray()
 	}
 
-	fun play() {
+	fun playWinFirst() {
 		numbers.forEach { number ->
-			boards.forEach {
-				it.handleIncomingNumber(number)
+			boards.forEach { bingoBoard ->
+				bingoBoard.handleIncomingNumber(number)
+			}
+		}
+	}
+
+	fun playWinLast() {
+		numbers.forEach { number ->
+			boards.forEach { bingoBoard ->
+				try {
+					bingoBoard.handleIncomingNumber(number)
+				} catch (ex: BingoGame.BingoBoard.WinningException) {
+					if (boards.size > 1) {
+						boards = boards.toList().minus(bingoBoard).toTypedArray()
+					} else {
+						throw ex
+					}
+				}
+
 			}
 		}
 	}
@@ -60,7 +77,6 @@ class BingoGame {
 		}
 
 		inner class BoardEntry(val number: Int, var selected: Boolean)
-
 		inner class WinningException(val winningScore: Int) : RuntimeException()
 	}
 }

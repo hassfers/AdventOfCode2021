@@ -32,11 +32,21 @@ class Day_4 : Day {
 		val game = BingoGame(input)
 		println(game.numbers.joinToString())
 		try {
-			game.play()
+			game.playWinFirst()
 		} catch (ex: BingoGame.BingoBoard.WinningException) {
 			return ex.winningScore.toString()
 		}
-
 		return super.solvePartOne(input)
+	}
+
+	override fun solvePartTwo(input: Array<String>): String {
+		val game = BingoGame(input)
+		println(game.numbers.joinToString())
+		try {
+			game.playWinLast()
+		} catch (ex: BingoGame.BingoBoard.WinningException) {
+			return ex.winningScore.toString()
+		}
+		return super.solvePartTwo(input)
 	}
 }
