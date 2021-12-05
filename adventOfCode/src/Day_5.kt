@@ -1,8 +1,6 @@
 package com.mypackage
 
-class Day_5 {
-import kotlin.math.abs
-import kotlin.math.min
+import kotlin.math.*
 
 class Day_5 : Day {
 	override val day: DayIdentifier
@@ -21,29 +19,70 @@ class Day_5 : Day {
 			"5,5 -> 8,2"
 		)
 	override val isRunningExample: Boolean
-		get() = true
+		get() = false
 
 	inner class GridPoint(val x: Int, val y: Int) {
 		override fun toString(): String {
 			return "(x: $x, y: $y)"
 		}
 
+		fun equals(other: GridPoint?): Boolean {
+			return x == other?.x
+					&& y == other?.y
+		}
 	}
 
 	inner class CorespondigGridPoint(val startPoint: GridPoint, val endPoint: GridPoint) {
-		fun generateStraigthPointBetween(): Array<GridPoint> {
-			return if (startPoint.x == endPoint.x) {
-				IntArray(abs(startPoint.y - endPoint.y) + 1) { it + min(startPoint.y, endPoint.y) }.toList().map {
-					GridPoint(startPoint.x, it)
-				}.toTypedArray()
-			} else {
-				IntArray(abs(startPoint.x - endPoint.x) + 1) { it + min(startPoint.x, endPoint.x) }.toList().map {
-					GridPoint(it, startPoint.y)
-				}.toTypedArray()
-			}
+		fun generatePointBetween(): Array<GridPoint> {
+			val diffX = endPoint.x - startPoint.x
+			val diffY = endPoint.y - startPoint.y
+			val count = max(abs(diffX), abs(diffY)) + 1
+			val distance =
+				sqrt(
+					((startPoint.x - endPoint.x) * (startPoint.x - endPoint.x)
+							+ (startPoint.y - endPoint.y) * (startPoint.y - endPoint.y)).toDouble()
+				) / count
+			val fi: Double = atan2((diffY).toDouble(), (diffX).toDouble())
+
+			return arrayOf(startPoint).plus(generateNextPoints(startPoint, endPoint, emptyList()).toTypedArray())
 		}
+
+		fun generateNextPoints(startPoint: GridPoint, endPoint: GridPoint, points: List<GridPoint>): List<GridPoint> {
+			if (startPoint.equals(endPoint)) {
+				return points
+			}
+
+			val diffX = endPoint.x - startPoint.x
+			val diffY = endPoint.y - startPoint.y
+
+			val distance = if (diffX == 0 || diffY == 0) {
+				1.0
+			} else {
+				sqrt(2.0)
+			}
+			val fi: Double = atan2((diffY).toDouble(), (diffX).toDouble())
+			val nextPoint = GridPoint(
+				(startPoint.x + distance * cos(fi)).roundToInt(),
+				(startPoint.y + distance * sin(fi)).roundToInt()
+			)
+
+			return generateNextPoints(nextPoint, endPoint, points.plus(nextPoint))
+		}
+	}
+
 	override fun solvePartOne(input: Array<String>): String {
-		val points = input
+		return numberOfCrossings(process(input).filter {
+			it.startPoint.x == it.endPoint.x
+					|| it.startPoint.y == it.endPoint.y
+		}.toTypedArray()).toString()
+	}
+
+	override fun solvePartTwo(input: Array<String>): String {
+		return numberOfCrossings(process(input).toTypedArray()).toString()
+	}
+
+	fun process(array: Array<String>): List<CorespondigGridPoint> {
+		return array
 			.toList()
 			.map {
 				it.split(" -> ")
@@ -52,19 +91,15 @@ class Day_5 : Day {
 						GridPoint(it.first().toInt(), it[1].toInt())
 					}
 			}
-			.filter {
-				it[0].x == it[1].x || it[0].y == it[1].y
-			}.map {
+			.map {
 				CorespondigGridPoint(it.first(), it[1])
 			}
+	}
 
+	fun numberOfCrossings(array: Array<CorespondigGridPoint>): Int {
 		var grid = emptyMap<String, Int>().toMutableMap()
-
-		points.forEach { corespondigGridPoint ->
-			println("${corespondigGridPoint.startPoint} ${corespondigGridPoint.endPoint}")
-			println(corespondigGridPoint.generatePointBetween().joinToString())
-			println()
-			corespondigGridPoint.generateStraigthPointBetween().forEach { gridPoint ->
+		array.forEach { corespondigGridPoint ->
+			corespondigGridPoint.generatePointBetween().forEach { gridPoint ->
 				if (grid.containsKey(gridPoint.toString())) {
 					grid[gridPoint.toString()] = grid[gridPoint.toString()]?.plus(1)!!
 				} else {
@@ -72,9 +107,8 @@ class Day_5 : Day {
 				}
 			}
 		}
-		val filter = grid.count {
+		return grid.count {
 			it.value > 1
 		}
-		return filter.toString()
 	}
 }
