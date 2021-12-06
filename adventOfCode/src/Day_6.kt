@@ -17,12 +17,48 @@ class Day_6 : Day {
 		return fishs.size.toString()
 	}
 
+	override fun solvePartTwo(input: Array<String>): String {
+		val start = input.first().split(",").map { it.toInt() }.toIntArray()
+		return nextIteration(start, target = 256).map { it.value }.sum().toString()
+	}
+
+	fun nextIteration(input: IntArray, target: Int): Map<Int, Long> {
+		var map = input.map { number ->
+			number to input.count {
+				it == number
+			}.toLong()
+		}.toSet()
+			.toMap()
+		repeat(target) {
+			var newMap = mutableMapOf<Int, Long>(
+				0 to 0,
+				1 to 0,
+				2 to 0,
+				3 to 0,
+				4 to 0,
+				5 to 0,
+				6 to 0,
+				7 to 0,
+				8 to 0
+			)
+			map.keys.forEach { i ->
+				if (i == 0) {
+					newMap[6] = newMap[6]!!.plus(map[i]!!)
+					newMap[8] = map[i]!!
+				} else {
+					newMap[i - 1] = newMap[i - 1]!!.plus(map[i]!!)
+				}
+			}
+			map = newMap
+		}
+		return map
+	}
+
+
 	fun nextIteration(input: IntArray, index: Int, target: Int): IntArray {
 		if (index == target) {
 			return input
 		}
-//		println(index)
-//		println(input.joinToString())
 		val count = input.count {
 			it == 0
 		}
@@ -33,9 +69,6 @@ class Day_6 : Day {
 				6
 			}
 		}.toIntArray()
-
-//		println(nextArray.plus(IntArray(count) { 8 }).joinToString())
-//		println()
 		return nextIteration(nextArray.plus(IntArray(count) { 8 }), index + 1, target)
 	}
 }
