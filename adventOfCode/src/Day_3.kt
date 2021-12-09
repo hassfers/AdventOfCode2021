@@ -81,7 +81,7 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 
 	fun getOxygen(array: Array<String>): Array<String> {
 		return processWithComperator(array, 0, comparator = { zeros, ones ->
-			if ((zeros compareTo ones) == 1) {
+			if ((zeros.compareTo(ones)) == 1) {
 				'0'
 			} else {
 				'1'
@@ -91,7 +91,7 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 
 	fun getCo2(array: Array<String>, position: Int): Array<String> {
 		return processWithComperator(array, 0, comparator = { zeros, ones ->
-			if ((ones compareTo zeros) == -1) {
+			if ((ones.compareTo(zeros)) == -1) {
 				'1'
 			} else {
 				'0'
@@ -99,4 +99,3 @@ class Day_3(override val isRunningExample: Boolean) : Day {
 		})
 	}
 }
-
