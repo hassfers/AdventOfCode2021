@@ -60,3 +60,9 @@ fun String.toStringArray(): Array<String> {
 fun List<String>.toConnectedString(): String {
 	return this.joinToString(separator = "", prefix = "", postfix = "")
 }
+
+fun String.containsAllChars(stringToChecK: String): Boolean {
+	return stringToChecK.toCharArray().all {
+		this.toCharArray().contains(it)
+	}
+}

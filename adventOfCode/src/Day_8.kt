@@ -38,11 +38,23 @@ class Day_8 : Day {
 	}
 
 	override fun solvePartTwo(input: Array<String>): String {
-		val testString = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |\n" +
-				"cdfeb fcadb cdfeb cdbaf"
-		val partOne = testString.substringBefore("|").trim().split(" ").toTypedArray()
-		sevenSegment().figureOutSegments(partOne)
-		return super.solvePartTwo(input)
+//		val testString = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |\n" +
+//				"cdfeb fcadb cdfeb cdbaf"
+		val partOne = input.map {
+			it.substringBefore("|").trim().split(" ").toTypedArray() to
+					it.substringAfter("|").trim().split(" ").toTypedArray()
+		}.map {
+			val display = sevenSegment()
+//			println(it.first.joinToString())
+			display.figureOutSegments(it.first)
+//			println(it.second.joinToString())
+			display.decode(it.second)
+
+		}
+//		val display = sevenSegment()
+//		display.figureOutSegments(partOne)
+//		return display.decode(testString.substringAfter("|").trim().split(" ").toTypedArray())
+		return partOne.sum().toString()
 	}
 
 	class sevenSegment {
@@ -63,21 +75,21 @@ class Day_8 : Day {
 			potentionalupRight = one
 			potentionalmiddle = four.subtract(one).toList()
 			potentionalupLeft = four.subtract(one).toList()
-			val three = sortedinput.filter {
-				it.contains(one.toConnectedString())
+			val three = sortedinput.first {
+				it.containsAllChars(one.toConnectedString())
 						&& it.count() == 5
-			}.first().toStringArray()
+			}.toStringArray()
 			this.three = three.toList().toConnectedString()
 			potentionalbuttom = three.subtract(seven).subtract(four).toList()
 			potentionalupLeft = potentionalmiddle.subtract(three.toList()).toList()
 			potentionalmiddle = potentionalmiddle.subtract(potentionalupLeft).toList()
-			val five = sortedinput.filter {
-				it.contains(potentionalmiddle.toConnectedString())
+			val five = sortedinput.first {
+				it.containsAllChars(potentionalmiddle.toConnectedString())
 						&& it.contains(roof.toString())
 						&& it.contains(potentionalupLeft.toConnectedString())
 						&& it.contains(potentionalbuttom.toConnectedString())
 						&& it.count() == 5
-			}.first().toStringArray()
+			}.toStringArray()
 			this.five = five.toList().toConnectedString()
 			potentionaldownRight = potentionaldownRight.intersect(five.toList()).toList()
 			potentionalupRight = potentionalupRight.subtract(potentionaldownRight.toList()).toList()
@@ -108,7 +120,7 @@ class Day_8 : Day {
 		var nine = ""
 		var two = ""
 
-		fun decode(string: String): Int {
+		private fun decode(string: String): Int {
 			return when (string) {
 				one -> {
 					1
@@ -154,12 +166,12 @@ class Day_8 : Day {
 				potentionaldownLeft.size != 1 ||
 				potentionalbuttom.size != 1
 			) {
-				throw Exception("da stimmt was net ")
+				throw Exception("da stimmt was net")
 			}
-			println(input.map {
-			decode(it)
-			})
-			return 0
+			val numbers = input.map {
+				"${decode(it.toStringArray().sorted().toConnectedString())}"
+			}.toConnectedString()
+			return numbers.toInt()
 		}
 	}
 
