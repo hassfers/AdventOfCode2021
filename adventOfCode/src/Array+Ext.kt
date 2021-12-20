@@ -52,3 +52,17 @@ fun List<String>.splitBy(string: String): List<List<String>> {
 	}
 	return returnValue
 }
+
+fun String.toStringArray(): Array<String> {
+	return this.map { "$it" }.toTypedArray()
+}
+
+fun List<String>.toConnectedString(): String {
+	return this.joinToString(separator = "", prefix = "", postfix = "")
+}
+
+fun String.containsAllChars(stringToChecK: String): Boolean {
+	return stringToChecK.toCharArray().all {
+		this.toCharArray().contains(it)
+	}
+}
