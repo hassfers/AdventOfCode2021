@@ -25,8 +25,7 @@ interface Day {
 	val day: DayIdentifier
 
 	val example: Array<String>
-	val isRunningExample:Boolean
-
+	val isRunningExample: Boolean
 
 	fun readInputFile(): Array<String> {
 //		File(".").walk().forEach {
