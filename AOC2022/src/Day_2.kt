@@ -96,5 +96,3 @@ class Day_2 : Day {
 		return "${test.sum()}"
 	}
 }
-
-val String.asciiNumber get() = this.toCharArray()[0].toInt()

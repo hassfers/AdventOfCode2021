@@ -67,3 +67,5 @@ fun String.containsAllChars(stringToChecK: String): Boolean {
 		this.toCharArray().contains(it)
 	}
 }
+
+val String.asciiNumber get() = this.toCharArray()[0].toInt()
