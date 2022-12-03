@@ -1,4 +1,4 @@
-package com.mypackage.AOC2022
+package de.hassfers.adventofCode.commonFunctions
 
 
 fun <E> List<E>.floatingGroupBy(number: Int): List<List<E>> {
