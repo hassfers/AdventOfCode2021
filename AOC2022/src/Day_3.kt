@@ -24,6 +24,11 @@ class Day_3 : Day {
 	}
 
 	override fun solvePartTwo(input: List<String>): String {
-		return super.solvePartTwo(input)
+		val groups = input.chunked(3).map {
+			it.map { it.toList() }
+		}
+		val badges = groups.flatMap { (it[0].intersect(it[1]).intersect(it[2])) }
+			.map { if (it.toInt() > 91) it.toInt() - 96 else it.toInt() - 38 }
+		return badges.sum().toString()
 	}
 }
