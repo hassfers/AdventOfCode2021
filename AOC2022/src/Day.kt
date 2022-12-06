@@ -40,7 +40,7 @@ abstract class Day {
 		if (isRunningExample) {
 			return example
 		}
-		val filename = "./AOC2022/src/Input/" + day.toString()
+		val filename = "./AOC2022/src/Input/" + javaClass.simpleName
 		return File(filename).readLines()
 	}
 }
