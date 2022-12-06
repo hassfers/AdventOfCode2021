@@ -3,8 +3,8 @@ package com.mypackage.AOC2022
 import java.lang.RuntimeException
 
 class Day_2 : Day() {
-	override val day: DayIdentifier
-		get() = DayIdentifier.Day_2
+//	override val day: DayIdentifier
+//		get() = DayIdentifier.Day_2
 	override val example: List<String>
 		get() =
 			listOf(

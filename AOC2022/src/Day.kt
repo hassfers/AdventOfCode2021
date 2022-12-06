@@ -28,7 +28,7 @@ abstract class Day {
 	var resultPartOne: String  = ""
 	var resultPartTwo: String = ""
 
-	abstract val day: DayIdentifier
+	val day = javaClass.simpleName
 
 	abstract val example: List<String>
 	abstract val isRunningExample: Boolean
