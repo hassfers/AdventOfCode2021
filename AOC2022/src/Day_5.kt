@@ -10,9 +10,9 @@ class Day_5 : Day() {
 			"move 2 from 2 to 1",
 			"move 1 from 1 to 2"
 		)
+
 	override val isRunningExample: Boolean
 		get() = false
-
 
 	val startingPoint: MutableList<MutableList<String>>
 	get() =  if (isRunningExample) mutableListOf(
