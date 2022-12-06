@@ -1,6 +1,6 @@
 package com.mypackage.AOC2022
 
-class Day_1:Day {
+class Day_1: Day() {
 	override val day: DayIdentifier
 		get() = DayIdentifier.Day_1
 	override val example: List<String> = listOf(

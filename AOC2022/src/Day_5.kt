@@ -1,6 +1,6 @@
 package com.mypackage.AOC2022
 
-class Day_5 : Day {
+class Day_5 : Day() {
 	override val day: DayIdentifier
 		get() = DayIdentifier.Day_5
 	override val example: List<String>
@@ -13,8 +13,6 @@ class Day_5 : Day {
 	override val isRunningExample: Boolean
 		get() = false
 
-	var resultPartOne:String = ""
-	var resultPartTwo:String = ""
 
 	val startingPoint: MutableList<MutableList<String>>
 	get() =  if (isRunningExample) mutableListOf(
@@ -85,9 +83,7 @@ class Day_5 : Day {
 //			println(startingPoint)
 //			println("----")
 		}
-
-		resultPartOne = startingPoint.map { it.last() }.toConnectedString()
-		return resultPartOne
+		return startingPoint.map { it.last() }.toConnectedString()
 	}
 
 	override fun solvePartTwo(input: List<String>): String {
@@ -106,9 +102,7 @@ class Day_5 : Day {
 //			println("----")
 		}
 
-		resultPartTwo = startingPoint.map { it.last() }.toConnectedString()
-
-		return resultPartTwo
+		return startingPoint.map { it.last() }.toConnectedString()
 	}
 
 }

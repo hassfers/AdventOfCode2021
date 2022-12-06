@@ -3,29 +3,35 @@ package com.mypackage.AOC2022
 import java.io.File
 import kotlin.system.measureTimeMillis
 
-interface Day {
+abstract class Day {
 	fun solve(){
 		val time = measureTimeMillis{
-			println("-------------${day.toString()}-------------------")
-			println("Part One: ${solvePartOne(readInputFile())}")
-			println("Part Two: ${solvePartTwo(readInputFile())}")
-			println("-------------${day.toString()}-------------------")
+			resultPartOne = solvePartOne(readInputFile())
+			resultPartTwo = solvePartTwo(readInputFile())
 		}
-		println("took ${time} ms")
+
+		println("-------------${day.toString()}-------------------")
+		println("Part One: $resultPartOne")
+		println("Part Two: $resultPartTwo")
+		println("-------------${day.toString()}-------------------")
+		println("took $time ms")
 	}
 
-	fun solvePartOne(input: List<String>): String {
+	open fun solvePartOne(input: List<String>): String {
 		return "not implemented yet"
 	}
 
-	fun solvePartTwo(input:List<String>): String {
+	open fun solvePartTwo(input:List<String>): String {
 		return "not implemented yet"
 	}
 
-	val day: DayIdentifier
+	var resultPartOne: String  = ""
+	var resultPartTwo: String = ""
 
-	val example: List<String>
-	val isRunningExample: Boolean
+	abstract val day: DayIdentifier
+
+	abstract val example: List<String>
+	abstract val isRunningExample: Boolean
 
 	fun readInputFile(): List<String> {
 //		File(".").walk().forEach {
