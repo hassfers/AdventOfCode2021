@@ -1,6 +1,5 @@
 package com.mypackage.AOC2022
 
-import kotlin.test.assertEquals
 
 fun main(args: Array<String>) {
 
