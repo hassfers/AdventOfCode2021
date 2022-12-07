@@ -9,8 +9,10 @@ fun main(args: Array<String>) {
 //	Day_4().solve()
 //	val day = Day_5()
 //	day.solve()
-//	assertEquals(day.resultPartOne,"NTWZZWHFV")
-//	assertEquals(day.resultPartTwo,"BRZGFVBTJ")
-	Day_6().solve()
+
+	val day = Day_6()
+	day.solve()
+	assert(day.resultPartOne =="[1896]")
+	assert(day.resultPartTwo =="[3452]")
 }
 
