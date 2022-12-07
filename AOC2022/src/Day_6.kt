@@ -13,6 +13,10 @@ class Day_6 : Day() {
     override val isRunningExample: Boolean
         get() = false
 
+
+
+
+
     override fun solvePartOne(input: List<String>): String {
         return if (isRunningExample) {
             input.map {
@@ -32,19 +36,19 @@ class Day_6 : Day() {
     }
 
     override fun solvePartTwo(input: List<String>): String {
-        if (isRunningExample) {
+        return if (isRunningExample) {
             input.map {
-                val marker = it.windowed(4).first {
-                    it.toSet().count() == 4
+                val marker = it.windowed(14).first {
+                    it.toSet().count() == 14
                 }
-                it.indexOf(marker) + 4
+                it.indexOf(marker) + 14
             }.joinToString(separator = ",")
         } else {
             return input.map {
-                val marker = it.windowed(4).first {
-                    it.toSet().count() == 4
+                val marker = it.windowed(14).first {
+                    it.toSet().count() == 14
                 }
-                it.indexOf(marker) + 4
+                it.indexOf(marker) + 14
             }.toString()
         }
     }
