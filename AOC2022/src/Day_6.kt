@@ -13,24 +13,21 @@ class Day_6 : Day() {
     override val isRunningExample: Boolean
         get() = false
 
-
-
-
+    fun readMarker(input: String, number: Int): Int {
+        val marker = input.windowed(number).first {
+            it.toSet().count() == number
+        }
+        return input.indexOf(marker) + number
+    }
 
     override fun solvePartOne(input: List<String>): String {
         return if (isRunningExample) {
             input.map {
-                val marker = it.windowed(4).first {
-                    it.toSet().count() == 4
-                }
-                it.indexOf(marker) + 4
+                readMarker(it, 4)
             }.joinToString(separator = ",")
         } else {
             return input.map {
-                val marker = it.windowed(4).first {
-                    it.toSet().count() == 4
-                }
-                it.indexOf(marker) + 4
+                readMarker(it, 4)
             }.toString()
         }
     }
@@ -38,17 +35,11 @@ class Day_6 : Day() {
     override fun solvePartTwo(input: List<String>): String {
         return if (isRunningExample) {
             input.map {
-                val marker = it.windowed(14).first {
-                    it.toSet().count() == 14
-                }
-                it.indexOf(marker) + 14
+                readMarker(it, 14)
             }.joinToString(separator = ",")
         } else {
             return input.map {
-                val marker = it.windowed(14).first {
-                    it.toSet().count() == 14
-                }
-                it.indexOf(marker) + 14
+                readMarker(it, 14)
             }.toString()
         }
     }
