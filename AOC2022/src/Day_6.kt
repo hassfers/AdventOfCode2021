@@ -14,17 +14,15 @@ class Day_6 : Day() {
         get() = false
 
     fun readMarker(input: String, number: Int): Int {
-        val marker = input.windowed(number).first {
-            it.toSet().count() == number
-        }
+        val marker = input
+            .windowed(number)
+            .first { it.toSet().size == number }
         return input.indexOf(marker) + number
     }
 
     override fun solvePartOne(input: List<String>): String {
         return if (isRunningExample) {
-            input.map {
-                readMarker(it, 4)
-            }.joinToString(separator = ",")
+            input.map { readMarker(it, 4) }.joinToString(separator = ",")
         } else {
             return input.map {
                 readMarker(it, 4)
@@ -34,13 +32,9 @@ class Day_6 : Day() {
 
     override fun solvePartTwo(input: List<String>): String {
         return if (isRunningExample) {
-            input.map {
-                readMarker(it, 14)
-            }.joinToString(separator = ",")
+            input.map { readMarker(it, 14) }.joinToString(separator = ",")
         } else {
-            return input.map {
-                readMarker(it, 14)
-            }.toString()
+            return input.map { readMarker(it, 14) }.toString()
         }
     }
 }
