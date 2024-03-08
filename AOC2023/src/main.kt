@@ -1,4 +1,4 @@
-package com.mypackage.AOC2022
+package com.mypackage.AOC2023
 
 
 fun main(args: Array<String>) {

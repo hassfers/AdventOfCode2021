@@ -37,7 +37,7 @@ class Day_5 : Day() {
 		mutableListOf("S", "D", "F", "L", "Q", "M").asReversed(),
 	)
 
-	fun generateOperations(input: List<String>): List<List<Int>> {
+	private fun generateOperations(input: List<String>): List<List<Int>> {
 		return input
 			.map { it.split("from ") }
 			.map {
